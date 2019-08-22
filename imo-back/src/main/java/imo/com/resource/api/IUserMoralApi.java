@@ -3,8 +3,7 @@
  */
 package imo.com.resource.api;
 
-import javax.ws.rs.core.MediaType;
-
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +21,6 @@ public interface IUserMoralApi {
 	 * @param userMoralDto
 	 * @return responseEntity
 	 */
-	@PostMapping(path = "/inscription/promoteur", produces = MediaType.APPLICATION_JSON)
+	@PostMapping(path = "/inscription/promoteur", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ImoResponse<UserMoralDto>> creationCompte(@RequestBody UserMoralDto userMoralDto);
 }

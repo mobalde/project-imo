@@ -13,7 +13,7 @@ import java.util.List;
 public class ImoResponse<T> {
 
 	/** code http */
-	private String codeResultat;
+	private int statut;
 
 	/** message reponse */
 	private String messageResponse;
@@ -24,8 +24,8 @@ public class ImoResponse<T> {
 	/**
 	 * @return the codeResultat
 	 */
-	public String getCodeResultat() {
-		return codeResultat;
+	public int getStatut() {
+		return statut;
 	}
 
 	/**
@@ -45,8 +45,8 @@ public class ImoResponse<T> {
 	/**
 	 * @param codeResultat the codeResultat to set
 	 */
-	public void setCodeResultat(String codeResultat) {
-		this.codeResultat = codeResultat;
+	public void setStatut(int codeResultat) {
+		this.statut = codeResultat;
 	}
 
 	/**

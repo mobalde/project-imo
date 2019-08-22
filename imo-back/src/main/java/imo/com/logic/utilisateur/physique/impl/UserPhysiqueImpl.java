@@ -6,6 +6,7 @@ package imo.com.logic.utilisateur.physique.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import imo.com.logic.utilisateur.physique.IUserPhysique;
@@ -24,6 +25,7 @@ public class UserPhysiqueImpl implements IUserPhysique{
 
 		List<UserPhysiqueDto> results = new ArrayList<>();
 		ImoResponse<UserPhysiqueDto> imoResponse = new ImoResponse<UserPhysiqueDto>();
+		imoResponse.setStatut(HttpStatus.OK.value());
 		imoResponse.setMessageResponse("TEST SERVICE");
 		imoResponse.setResult(results);
 		return imoResponse;

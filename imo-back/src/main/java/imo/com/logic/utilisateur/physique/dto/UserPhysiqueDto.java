@@ -20,7 +20,7 @@ public class UserPhysiqueDto {
 	private RepresentantLegal representantLegal;
 
 	/** sexe */
-	private SexeEnum sex;
+	private SexeEnum sexe;
 
 	/**
 	 * @return the adresse
@@ -37,8 +37,8 @@ public class UserPhysiqueDto {
 	/**
 	 * @return the sex
 	 */
-	public SexeEnum getSex() {
-		return sex;
+	public SexeEnum getSexe() {
+		return sexe;
 	}
 	/**
 	 * @param adresse the adresse to set
@@ -55,7 +55,7 @@ public class UserPhysiqueDto {
 	/**
 	 * @param sex the sex to set
 	 */
-	public void setSex(SexeEnum sex) {
-		this.sex = sex;
+	public void setSexe(SexeEnum sex) {
+		this.sexe = sex;
 	}
 }
