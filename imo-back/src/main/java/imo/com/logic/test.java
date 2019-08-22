@@ -1,7 +1,7 @@
 /**
  * 
  */
-package imo.com.resource;
+package imo.com.logic;
 
 /**
  * @author mbalde
