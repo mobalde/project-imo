@@ -1,29 +1,33 @@
 package imo.com.logic.utilisateur.physique.mapper;
 
-import fr.xebia.extras.selma.Mapper;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import imo.com.logic.IGeneriqueMapper;
 import imo.com.logic.utilisateur.physique.dto.UserPhysiqueDto;
 import imo.com.model.utilisateur.UserPhysiqueEntity;
 
 /**
  * Mapper for user physique
+ * 
  * @author mbalde
  *
  */
-@Mapper
-public interface UserPhysiqueMapper {
+@Component
+public class UserPhysiqueMapper implements IGeneriqueMapper<UserPhysiqueDto, UserPhysiqueEntity> {
 
-    /**
-     * convertit entity en dto
-     * @param in userPhysiqueEntity
-     * @return userPhysiqueDto
-     */
-    UserPhysiqueDto asUserPhysiqueDto(UserPhysiqueEntity in);
+    @Autowired
+    ModelMapper modelMapper;
 
-    /**
-     * convertit dto en entity
-     * @param in userPhysiqueDto
-     * @return userPhysiqueEntity
-     */
-    UserPhysiqueEntity asUserPhysiqueEntity(UserPhysiqueDto in);
+    @Override
+    public UserPhysiqueDto asObjectDto(UserPhysiqueEntity in) {
+        return this.modelMapper.map(in, UserPhysiqueDto.class);
+    }
+
+    @Override
+    public UserPhysiqueEntity asObjectEntity(UserPhysiqueDto in) {
+        return this.modelMapper.map(in, UserPhysiqueEntity.class);
+    }
 
 }

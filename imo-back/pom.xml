@@ -82,19 +82,10 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- scope provided because the processor is only needed at compile time-->
 		<dependency>
-		    <groupId>fr.xebia.extras</groupId>
-		    <artifactId>selma-processor</artifactId>
-		    <version>1.0</version>
-		    <scope>provided</scope>
-		</dependency>
-		<!-- This is the only real dependency you will have in your binaries -->
-		<dependency>
-		    <groupId>fr.xebia.extras</groupId>
-		    <artifactId>selma</artifactId>
-		    <version>1.0</version>
+		    <groupId>org.modelmapper</groupId>
+		    <artifactId>modelmapper</artifactId>
+		    <version>2.0.0</version>
 		</dependency>
 	</dependencies>
 

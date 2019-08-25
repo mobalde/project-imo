@@ -29,8 +29,7 @@ public class UserPhysiqueController implements IUserPhysiqueApi {
     public ResponseEntity<ImoResponse<UserPhysiqueDto>> creationCompte(UserPhysiqueDto userPhysiqueDto) {
 
         this.imoResponse = this.iuserPhysque.registration(userPhysiqueDto);
-        return new ResponseEntity<ImoResponse<UserPhysiqueDto>>(this.imoResponse,
-                HttpStatus.valueOf(this.imoResponse.getStatut()));
+        return new ResponseEntity<>(this.imoResponse, HttpStatus.valueOf(this.imoResponse.getStatut()));
     }
 
 }
