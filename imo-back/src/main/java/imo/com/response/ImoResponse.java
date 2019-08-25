@@ -12,55 +12,76 @@ import java.util.List;
  */
 public class ImoResponse<T> {
 
-	/** code http */
-	private int statut;
+    /** champs obligatoires */
+    private String[] champsObligatoires;
 
-	/** message reponse */
-	private String messageResponse;
+    /** message reponse */
+    private String messageResponse;
 
-	/** resultat de la reponse */
-	private List<T> result = new ArrayList<>();
+    /** resultat de la reponse */
+    private List<T> result = new ArrayList<>();
 
-	/**
-	 * @return the codeResultat
-	 */
-	public int getStatut() {
-		return statut;
-	}
+    /** code http */
+    private int statut;
 
-	/**
-	 * @return the messageResponse
-	 */
-	public String getMessageResponse() {
-		return messageResponse;
-	}
+    /**
+     * @return the champsObligatoires
+     */
+    public String[] getChampsObligatoires() {
+        return champsObligatoires;
+    }
 
-	/**
-	 * @return the result
-	 */
-	public List<T> getResult() {
-		return result;
-	}
+    /**
+     * @return the messageResponse
+     */
+    public String getMessageResponse() {
+        return messageResponse;
+    }
 
-	/**
-	 * @param codeResultat the codeResultat to set
-	 */
-	public void setStatut(int codeResultat) {
-		this.statut = codeResultat;
-	}
+    /**
+     * @return the result
+     */
+    public List<T> getResult() {
+        return result;
+    }
 
-	/**
-	 * @param messageResponse the messageResponse to set
-	 */
-	public void setMessageResponse(String messageResponse) {
-		this.messageResponse = messageResponse;
-	}
+    /**
+     * @return the codeResultat
+     */
+    public int getStatut() {
+        return statut;
+    }
 
-	/**
-	 * @param result the result to set
-	 */
-	public void setResult(List<T> result) {
-		this.result = result;
-	}
+    /**
+     * @param champsObligatoires
+     *                           the champsObligatoires to set
+     */
+    public void setChampsObligatoires(String[] champsObligatoires) {
+        this.champsObligatoires = champsObligatoires;
+    }
+
+    /**
+     * @param messageResponse
+     *                        the messageResponse to set
+     */
+    public void setMessageResponse(String messageResponse) {
+        this.messageResponse = messageResponse;
+    }
+
+    /**
+     * @param result
+     *               the result to set
+     */
+    public void setResult(List<T> result) {
+        this.result = result;
+    }
+
+    /**
+     * @param codeResultat
+     *                     the codeResultat to set
+     */
+    public void setStatut(int codeResultat) {
+        this.statut = codeResultat;
+    }
 
 }
