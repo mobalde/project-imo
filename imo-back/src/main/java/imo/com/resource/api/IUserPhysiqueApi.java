@@ -23,6 +23,6 @@ public interface IUserPhysiqueApi {
 	 * Creation compte utilisateur
 	 * @param responseEntity
 	 */
-    @PostMapping(path = "/inscription/client", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/inscription/client", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ImoResponse<UserPhysiqueDto>> creationCompte(@RequestBody UserPhysiqueDto userPhysiqueDto);
 }

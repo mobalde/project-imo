@@ -27,7 +27,7 @@ public abstract class AbstractEntity {
 	private Long id;
 
 	@Column(name="modificationcounter")
-	private int modificationcounter;
+	private int modificationcounter = 0;
 
 	@Column(name="update_at")
 	private LocalDateTime update_at = LocalDateTime.now();

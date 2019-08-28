@@ -18,18 +18,18 @@ import imo.com.response.ImoResponse;
 @Controller
 public class UserPhysiqueController implements IUserPhysiqueApi {
 
-    /** response à retourner au front */
-    private ImoResponse<UserPhysiqueDto> imoResponse;
+	/** response à retourner au front */
+	private ImoResponse<UserPhysiqueDto> imoResponse;
 
-    /** interface userPhysique */
-    @Inject
-    private IUserPhysique iuserPhysque;
+	/** interface userPhysique */
+	@Inject
+	private IUserPhysique iuserPhysque;
 
-    @Override
-    public ResponseEntity<ImoResponse<UserPhysiqueDto>> creationCompte(UserPhysiqueDto userPhysiqueDto) {
+	@Override
+	public ResponseEntity<ImoResponse<UserPhysiqueDto>> creationCompte(UserPhysiqueDto userPhysiqueDto) {
 
-        this.imoResponse = this.iuserPhysque.registration(userPhysiqueDto);
-        return new ResponseEntity<>(this.imoResponse, HttpStatus.valueOf(this.imoResponse.getStatut()));
-    }
+		this.imoResponse = this.iuserPhysque.registration(userPhysiqueDto);
+		return new ResponseEntity<>(this.imoResponse, HttpStatus.valueOf(this.imoResponse.getStatut()));
+	}
 
 }
