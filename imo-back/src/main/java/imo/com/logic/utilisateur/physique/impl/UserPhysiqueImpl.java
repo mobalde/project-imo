@@ -16,8 +16,10 @@ import imo.com.logic.utilisateur.CheckFieldsUser;
 import imo.com.logic.utilisateur.physique.IUserPhysique;
 import imo.com.logic.utilisateur.physique.dto.UserPhysiqueDto;
 import imo.com.logic.utilisateur.physique.mapper.UserPhysiqueMapper;
-import imo.com.logic.utilisateur.physique.repository.UserPhysiqueRepository;
+import imo.com.model.utilisateur.Role;
 import imo.com.model.utilisateur.UserPhysiqueEntity;
+import imo.com.repo.utilisateur.RoleRepository;
+import imo.com.repo.utilisateur.physique.UserPhysiqueRepository;
 import imo.com.response.ImoResponse;
 
 /**
@@ -26,6 +28,9 @@ import imo.com.response.ImoResponse;
  */
 @Component
 public class UserPhysiqueImpl implements IUserPhysique {
+
+	@Inject
+	private RoleRepository roleRepository;
 
 	/** mapper userPhysique */
 	@Inject
@@ -44,6 +49,10 @@ public class UserPhysiqueImpl implements IUserPhysique {
 			this.setImoResponse(imoResponse, HttpStatus.BAD_REQUEST.value(), ConstantesUtils.MESSAGE_ERREUR_FORMULAIRE_INSCRIPTION, results);
 		else {
 			UserPhysiqueEntity entity = this.userPhysiqueMapper.asObjectEntity(dto);
+			Role role = roleRepository.findByRole(dto.getRoles().get(0)); // Recupere le role
+			List<Role> roles = new ArrayList<>();
+			roles.add(role);
+			entity.setRoles(roles);
 			try {
 				this.userPhysiqueRepo.save(entity);
 				this.setImoResponse(imoResponse, HttpStatus.OK.value(), ConstantesUtils.MESSAGE_INSCRIPTION_REUSSI, results);

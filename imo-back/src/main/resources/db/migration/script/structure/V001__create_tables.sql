@@ -6,10 +6,11 @@ create table IF NOT EXISTS users(
     id BIGSERIAL NOT NULL,
     create_at timestamp without time zone,
     update_at timestamp without time zone,
-    modificationcounter integer not null,
-    email varchar(500) NOT NULL CONSTRAINT email_unique UNIQUE,
-    password varchar(500) NOT NULL,
+    modificationcounter integer,
+    email varchar(500) CONSTRAINT email_unique UNIQUE,
+    password varchar(500),
     enabled boolean,
+    user_type varchar(100),
     PRIMARY KEY(id)
 );
 
@@ -18,8 +19,8 @@ create table IF NOT EXISTS role(
     id BIGSERIAL NOT NULL,
     create_at timestamp without time zone,
     update_at timestamp without time zone,
-    modificationcounter integer not null,
-    role varchar(60) not null,
+    modificationcounter integer,
+    role varchar(60) not null CONSTRAINT role_unique UNIQUE,
     PRIMARY KEY(id)
 );
 
@@ -66,3 +67,5 @@ create table IF NOT EXISTS user_physique(
 -- contraintes
 Alter table user_roles add CONSTRAINT fk_user_roles FOREIGN KEY(user_id) REFERENCES users(id);
 Alter table user_roles add CONSTRAINT fk_role_user FOREIGN KEY(role_id) REFERENCES role(id);
+
+insert into role (id,modificationcounter, role) values (1, 0, 'ADMIN'),(2, 0, 'USER_MORAL'),(3, 0, 'USER_PHYSIQUE') ON CONFLICT (role) DO NOTHING;

@@ -6,7 +6,9 @@ package imo.com.model.utilisateur;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
@@ -25,13 +27,14 @@ import imo.com.model.AbstractEntity;
 @Entity
 @Table(name="users")
 @Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="user_type")
 public abstract class User extends AbstractEntity implements Serializable{
 
 	/** Serial ID */
 	private static final long serialVersionUID = -716142150922491844L;
 
 	/** email utilisateur */
-	@Column(name="email", nullable = false, unique = true)
+	@Column(name="email", unique = true)
 	private String email;
 
 	/** activation et desactivation */
@@ -39,11 +42,11 @@ public abstract class User extends AbstractEntity implements Serializable{
 	private boolean enabled = true;
 
 	/** mot de passe utilisateur */
-	@Column(name="password", nullable = false)
+	@Column(name="password")
 	private String password;
 
 	/** liste des roles */
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;

@@ -28,7 +28,7 @@ public class Role extends AbstractEntity implements Serializable{
 	private static final long serialVersionUID = -6488120240535583232L;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name="role", nullable = false)
+	@Column(name="role", nullable = false, unique = true)
 	private RoleUserEnum role;
 
 	/** liste user */
