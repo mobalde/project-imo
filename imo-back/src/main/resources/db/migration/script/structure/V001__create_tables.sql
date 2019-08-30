@@ -7,8 +7,8 @@ create table IF NOT EXISTS users(
     create_at timestamp without time zone,
     update_at timestamp without time zone,
     modificationcounter integer,
-    email varchar(500) CONSTRAINT email_unique UNIQUE,
-    password varchar(500),
+    email varchar(500) not null CONSTRAINT email_unique UNIQUE,
+    password varchar(500) not null,
     enabled boolean,
     user_type varchar(100),
     PRIMARY KEY(id)
@@ -33,6 +33,7 @@ create table IF NOT EXISTS user_roles(
 
 -- create user_moral
 create table IF NOT EXISTS user_moral(
+    id BIGSERIAL NOT NULL,
     kbis text,
     raison_social text,
     code_postal varchar(8),
@@ -46,11 +47,13 @@ create table IF NOT EXISTS user_moral(
     nom varchar(50) not null,
     telephone varchar(15),
     type_promoteur varchar(12) not null,
-    siret varchar(20)
-)INHERITS(users);
+    siret varchar(20),
+     PRIMARY KEY(id)
+);
 
 -- create table user_physique
 create table IF NOT EXISTS user_physique(
+    id BIGSERIAL NOT NULL,
     code_postal varchar(8),
     ville text not null,
     pays text not null,
@@ -61,8 +64,9 @@ create table IF NOT EXISTS user_physique(
     prenom varchar(50) not null,
     nom varchar(50) not null,
     telephone varchar(15),
-    sexe varchar(2) not null
-)INHERITS(users);
+    sexe varchar(2) not null,
+     PRIMARY KEY(id)
+);
 
 -- contraintes
 Alter table user_roles add CONSTRAINT fk_user_roles FOREIGN KEY(user_id) REFERENCES users(id);

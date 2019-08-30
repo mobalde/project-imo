@@ -57,7 +57,7 @@ public class UserPhysiqueImpl implements IUserPhysique {
 				this.userPhysiqueRepo.save(entity);
 				this.setImoResponse(imoResponse, HttpStatus.OK.value(), ConstantesUtils.MESSAGE_INSCRIPTION_REUSSI, results);
 			} catch (Exception e) {
-				this.setImoResponse(imoResponse, HttpStatus.INTERNAL_SERVER_ERROR.value(), ConstantesUtils.MESSAGE_REQUETE_BDD, results);
+				this.setImoResponse(imoResponse, HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), results);
 			}
 		}
 		return imoResponse;

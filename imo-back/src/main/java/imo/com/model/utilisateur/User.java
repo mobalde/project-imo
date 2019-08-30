@@ -34,7 +34,7 @@ public abstract class User extends AbstractEntity implements Serializable{
 	private static final long serialVersionUID = -716142150922491844L;
 
 	/** email utilisateur */
-	@Column(name="email", unique = true)
+	@Column(name="email", nullable = false, unique = true)
 	private String email;
 
 	/** activation et desactivation */
@@ -42,7 +42,7 @@ public abstract class User extends AbstractEntity implements Serializable{
 	private boolean enabled = true;
 
 	/** mot de passe utilisateur */
-	@Column(name="password")
+	@Column(name="password", nullable = false)
 	private String password;
 
 	/** liste des roles */
