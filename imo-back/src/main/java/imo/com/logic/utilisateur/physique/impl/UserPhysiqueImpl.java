@@ -8,10 +8,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import imo.com.general.ConstantesUtils;
+import imo.com.general.FonctialiterCommunes;
 import imo.com.logic.utilisateur.CheckFieldsUser;
 import imo.com.logic.utilisateur.physique.IUserPhysique;
 import imo.com.logic.utilisateur.physique.dto.UserPhysiqueDto;
@@ -40,13 +42,14 @@ public class UserPhysiqueImpl implements IUserPhysique {
 	@Inject
 	private UserPhysiqueRepository userPhysiqueRepo;
 
+
 	@Override
 	public ImoResponse<UserPhysiqueDto> registration(UserPhysiqueDto dto){
 
 		List<UserPhysiqueDto> results = new ArrayList<>();
 		ImoResponse<UserPhysiqueDto> imoResponse = new ImoResponse<>();
 		if (CheckFieldsUser.checkObjectDto(dto, imoResponse))
-			this.setImoResponse(imoResponse, HttpStatus.BAD_REQUEST.value(), ConstantesUtils.MESSAGE_ERREUR_FORMULAIRE_INSCRIPTION, results);
+			FonctialiterCommunes.setImoResponse(imoResponse, HttpStatus.BAD_REQUEST.value(), ConstantesUtils.MESSAGE_ERREUR_FORMULAIRE_INSCRIPTION, results);
 		else {
 			UserPhysiqueEntity entity = this.userPhysiqueMapper.asObjectEntity(dto);
 			Role role = roleRepository.findByRole(dto.getRoles().get(0)); // Recupere le role
@@ -55,25 +58,16 @@ public class UserPhysiqueImpl implements IUserPhysique {
 			entity.setRoles(roles);
 			try {
 				this.userPhysiqueRepo.save(entity);
-				this.setImoResponse(imoResponse, HttpStatus.OK.value(), ConstantesUtils.MESSAGE_INSCRIPTION_REUSSI, results);
+				FonctialiterCommunes.setImoResponse(imoResponse, HttpStatus.OK.value(), ConstantesUtils.MESSAGE_INSCRIPTION_REUSSI, results);
 			} catch (Exception e) {
-				this.setImoResponse(imoResponse, HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage(), results);
+				if(StringUtils.contains(e.getMessage(), "email"))
+					FonctialiterCommunes.setImoResponse(imoResponse, HttpStatus.INTERNAL_SERVER_ERROR.value(), ConstantesUtils.contrainteMessage(e.getMessage(), "email"), results);
+				else
+					FonctialiterCommunes.setImoResponse(imoResponse, HttpStatus.INTERNAL_SERVER_ERROR.value(), ConstantesUtils.contrainteMessage(e.getMessage(), ""), results);
+
 			}
 		}
 		return imoResponse;
-	}
-
-	/**
-	 * Construit l'objet reponse
-	 * @param imo
-	 * @param status
-	 * @param message
-	 * @param list
-	 */
-	private void setImoResponse(ImoResponse<UserPhysiqueDto> imo, int status, String message, List<UserPhysiqueDto> list) {
-		imo.setStatut(status);
-		imo.setMessageResponse(message);
-		imo.setResult(list);
 	}
 
 }
