@@ -21,7 +21,7 @@ public interface IGeneriqueMapper<D, E> {
      *           entity
      * @return dto
      */
-    D asObjectDto(E in);
+    public D asObjectDto(E in);
 
     /**
      * convertit dto en entity
@@ -30,6 +30,6 @@ public interface IGeneriqueMapper<D, E> {
      *           dto
      * @return entity
      */
-    E asObjectEntity(D in);
+    public E asObjectEntity(D in);
 
 }

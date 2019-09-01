@@ -1,26 +1,27 @@
 /**
  * 
  */
-package imo.com.logic.utilisateur.physique.impl;
+package imo.com.logic.utilisateur.moral.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import imo.com.general.ConstantesUtils;
 import imo.com.logic.utilisateur.CheckFieldsUser;
 import imo.com.logic.utilisateur.FonctialiterCommunes;
-import imo.com.logic.utilisateur.physique.IUserPhysique;
-import imo.com.logic.utilisateur.physique.dto.UserPhysiqueDto;
-import imo.com.logic.utilisateur.physique.mapper.UserPhysiqueMapper;
+import imo.com.logic.utilisateur.moral.IUserMoral;
+import imo.com.logic.utilisateur.moral.dto.UserMoralDto;
+import imo.com.logic.utilisateur.moral.mapper.UserMoralMapper;
 import imo.com.model.utilisateur.Role;
-import imo.com.model.utilisateur.UserPhysiqueEntity;
+import imo.com.model.utilisateur.UserMoralEntity;
 import imo.com.repo.utilisateur.RoleRepository;
-import imo.com.repo.utilisateur.physique.UserPhysiqueRepository;
+import imo.com.repo.utilisateur.moral.UserMoralRepository;
 import imo.com.response.ImoResponse;
 
 /**
@@ -28,45 +29,51 @@ import imo.com.response.ImoResponse;
  *
  */
 @Component
-public class UserPhysiqueImpl implements IUserPhysique {
+public class UserMoralImpl implements IUserMoral {
 
-    /** mapper userPhysique */
+    /** mapper userMoral */
     @Inject
-    private UserPhysiqueMapper mapper;
+    private UserMoralMapper mapper;
 
     /** role repo */
     @Inject
     private RoleRepository roleRepository;
 
-    /** userPhysique repo */
+    /** repo userMoral */
     @Inject
-    private UserPhysiqueRepository userPhysiqueRepo;
+    private UserMoralRepository userMoralrepo;
 
     @Override
-    public ImoResponse<UserPhysiqueDto> registration(UserPhysiqueDto dto) {
+    public ImoResponse<UserMoralDto> registration(UserMoralDto dto) {
 
         CheckFieldsUser checkUser = new CheckFieldsUser();
-        List<UserPhysiqueDto> results = new ArrayList<>();
-        ImoResponse<UserPhysiqueDto> imoResponse = new ImoResponse<>();
+        List<UserMoralDto> results = new ArrayList<>();
+        ImoResponse<UserMoralDto> imoResponse = new ImoResponse<>();
         if (checkUser.checkObjectDto(dto, imoResponse)) {
             FonctialiterCommunes.setImoResponse(imoResponse, HttpStatus.BAD_REQUEST.value(),
                     ConstantesUtils.MESSAGE_ERREUR_FORMULAIRE_INSCRIPTION, results);
         } else {
-            UserPhysiqueEntity entity = this.mapper.asObjectEntity(dto);
+            UserMoralEntity entity = this.mapper.asObjectEntity(dto);
             List<Role> roles = new ArrayList<>();
             if (dto.getRoles() != null && !dto.getRoles().isEmpty()) {
                 roles = roleRepository.findByRoleEnumIn(dto.getRoles());
             }
             entity.setRoles(roles);
             try {
-                this.userPhysiqueRepo.save(entity);
+                this.userMoralrepo.save(entity);
                 FonctialiterCommunes.setImoResponse(imoResponse, HttpStatus.OK.value(),
                         ConstantesUtils.MESSAGE_INSCRIPTION_REUSSI, results);
             } catch (Exception e) {
-                FonctialiterCommunes.setImoResponse(imoResponse, HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                        ConstantesUtils.contrainteMessage(e.getMessage(), "SQL [n/a]; constraint"), results);
+                if (StringUtils.contains(e.getMessage(), "email")) {
+                    FonctialiterCommunes.setImoResponse(imoResponse, HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                            ConstantesUtils.contrainteMessage(e.getMessage(), "email"), results);
+                } else {
+                    FonctialiterCommunes.setImoResponse(imoResponse, HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                            ConstantesUtils.contrainteMessage(e.getMessage(), ""), results);
+                }
             }
         }
+
         return imoResponse;
     }
 

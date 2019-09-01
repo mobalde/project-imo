@@ -22,12 +22,12 @@ public class UserPhysiqueMapper implements IGeneriqueMapper<UserPhysiqueDto, Use
 
     @Override
     public UserPhysiqueDto asObjectDto(UserPhysiqueEntity in) {
-        return this.modelMapper.map(in, UserPhysiqueDto.class);
+        return modelMapper.map(in, UserPhysiqueDto.class);
     }
 
     @Override
     public UserPhysiqueEntity asObjectEntity(UserPhysiqueDto in) {
-        return this.modelMapper.map(in, UserPhysiqueEntity.class);
+        return modelMapper.map(in, UserPhysiqueEntity.class);
     }
 
 }

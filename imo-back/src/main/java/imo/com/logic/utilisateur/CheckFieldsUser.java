@@ -5,6 +5,7 @@ package imo.com.logic.utilisateur;
 
 import org.apache.commons.lang3.StringUtils;
 
+import imo.com.general.IFonctionaliteCommune;
 import imo.com.logic.utilisateur.moral.dto.UserMoralDto;
 import imo.com.logic.utilisateur.physique.dto.UserPhysiqueDto;
 import imo.com.model.adresse.Adresse;
@@ -15,7 +16,7 @@ import imo.com.response.ImoResponse;
  * @author mbalde
  *
  */
-public abstract class CheckFieldsUser {
+public class CheckFieldsUser implements IFonctionaliteCommune {
 
     /**
      * check object adresse
@@ -24,11 +25,11 @@ public abstract class CheckFieldsUser {
      *                Adresse
      * @return message
      */
-    private static String checkAdresse(Adresse adresse) {
+    private String checkAdresse(Adresse adresse) {
         String message = "";
         if (adresse == null) {
             message += "pays ville ";
-        } else if (adresse != null) {
+        } else {
             if (StringUtils.isBlank(adresse.getPays())) {
                 message += "pays";
             } else if (!"Guinee".equals(adresse.getPays())) {
@@ -53,25 +54,38 @@ public abstract class CheckFieldsUser {
     /**
      * verification des champs non nullable
      * 
+     * @param <D>
+     *                    object response
+     * 
      * @param dto
-     *                    userPhysique
+     *                    userPhysique or user
      * @param imoResponse
      * @return boolean
      */
-    public static boolean checkObjectDto(Object dto, ImoResponse<UserPhysiqueDto> imoResponse) {
+    @Override
+    public <D> boolean checkObjectDto(Object dto, ImoResponse<D> imoResponse) {
 
         String champsObligatoires = "";
         if (dto instanceof UserPhysiqueDto) {
             if (((UserPhysiqueDto) dto).getSexe() == null) {
                 champsObligatoires += "sexe ";
             }
+            if (((UserPhysiqueDto) dto).getRoles() == null || ((UserPhysiqueDto) dto).getRoles().isEmpty()) {
+                champsObligatoires += "roles ";
+            }
             champsObligatoires += checkRepresentantLegal(((UserPhysiqueDto) dto).getRepresentantLegal());
             champsObligatoires += checkAdresse(((UserPhysiqueDto) dto).getAdresse());
         }
         // champs communs
         if (dto instanceof UserMoralDto) {
+            if (((UserMoralDto) dto).getRoles() == null || ((UserMoralDto) dto).getRoles().isEmpty()) {
+                champsObligatoires += "roles ";
+            }
             champsObligatoires += checkRepresentantLegal(((UserMoralDto) dto).getRepresentantLegal());
             champsObligatoires += checkAdresse(((UserMoralDto) dto).getAdresse());
+            if (((UserMoralDto) dto).getTypePromoteur() == null) {
+                champsObligatoires += "typePromoteur ";
+            }
         }
         if (StringUtils.isBlank(((UserDto) dto).getEmail())) {
             champsObligatoires += "email ";
@@ -94,11 +108,11 @@ public abstract class CheckFieldsUser {
      *             Representant legal
      * @return message
      */
-    private static String checkRepresentantLegal(RepresentantLegal repL) {
+    private String checkRepresentantLegal(RepresentantLegal repL) {
         String message = "";
         if (repL == null) {
             message += "nom prenom ";
-        } else if (repL != null) {
+        } else {
             if (StringUtils.isBlank(repL.getNom())) {
                 message += "nom ";
             }

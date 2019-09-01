@@ -29,7 +29,7 @@ public class Role extends AbstractEntity implements Serializable{
 
 	@Enumerated(EnumType.STRING)
 	@Column(name="role", nullable = false, unique = true)
-	private RoleUserEnum role;
+	private RoleUserEnum roleEnum;
 
 	/** liste user */
 	@ManyToMany(mappedBy="roles", fetch=FetchType.LAZY)
@@ -38,8 +38,8 @@ public class Role extends AbstractEntity implements Serializable{
 	/**
 	 * @return the role
 	 */
-	public RoleUserEnum getRole() {
-		return role;
+	public RoleUserEnum getRoleEnum() {
+		return roleEnum;
 	}
 
 	/**
@@ -52,8 +52,8 @@ public class Role extends AbstractEntity implements Serializable{
 	/**
 	 * @param role the role to set
 	 */
-	public void setRole(RoleUserEnum role) {
-		this.role = role;
+	public void setRoleEnum(RoleUserEnum role) {
+		this.roleEnum = role;
 	}
 
 	/**
