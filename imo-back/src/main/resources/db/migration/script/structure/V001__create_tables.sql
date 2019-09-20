@@ -68,8 +68,13 @@ create table IF NOT EXISTS user_physique(
      PRIMARY KEY(id)
 );
 
--- contraintes
-Alter table user_roles add CONSTRAINT fk_user_roles FOREIGN KEY(user_id) REFERENCES users(id);
-Alter table user_roles add CONSTRAINT fk_role_user FOREIGN KEY(role_id) REFERENCES role(id);
+-- Add contraintes
+ALTER TABLE ONLY user_roles ADD CONSTRAINT fk_user_roles FOREIGN KEY(user_id) REFERENCES users(id);
+
+ALTER TABLE ONLY user_roles ADD CONSTRAINT fk_role_user FOREIGN KEY(role_id) REFERENCES role(id);
+
+ALTER TABLE ONLY user_moral ADD CONSTRAINT fk_user_morale_user FOREIGN KEY (id) REFERENCES users(id);
+
+ALTER TABLE ONLY user_physique ADD CONSTRAINT fk_user_physique_user FOREIGN KEY (id) REFERENCES users(id);
 
 insert into role (id,modificationcounter, role) values (1, 0, 'ADMIN'),(2, 0, 'USER_MORAL'),(3, 0, 'USER_PHYSIQUE') ON CONFLICT (role) DO NOTHING;
