@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -19,6 +21,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import imo.com.model.AbstractEntity;
+import imo.com.model.typeUtilisateur.TypeUtilisateurEnum;
 
 /**
  * @author mbalde
@@ -30,84 +33,104 @@ import imo.com.model.AbstractEntity;
 @DiscriminatorColumn(name = "user_type")
 public abstract class User extends AbstractEntity implements Serializable {
 
-	/** Serial ID */
-	private static final long serialVersionUID = -716142150922491844L;
+    /** Serial ID */
+    private static final long serialVersionUID = -716142150922491844L;
 
-	/** email utilisateur */
-	@Column(name = "email", nullable = false, unique = true)
-	private String email;
+    /** email utilisateur */
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
-	/** activation et desactivation */
-	@Column(name = "enabled")
-	private boolean enabled = true;
+    /** activation et desactivation */
+    @Column(name = "enabled")
+    private boolean enabled = true;
 
-	/** mot de passe utilisateur */
-	@Column(name = "password", nullable = false)
-	private String password;
+    /** mot de passe utilisateur */
+    @Column(name = "password", nullable = false)
+    private String password;
 
-	/** liste des roles */
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-	private Collection<Role> roles;
+    /** liste des roles */
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+    /** type utilisateur */
+    @Column(name = "type_user", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TypeUtilisateurEnum typeUtilisateur;
 
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
-	/**
-	 * @return the roles
-	 */
-	public Collection<Role> getRoles() {
-		return roles;
-	}
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
 
-	/**
-	 * @return the enabled
-	 */
-	public boolean isEnabled() {
-		return enabled;
-	}
+    /**
+     * @return the roles
+     */
+    public Collection<Role> getRoles() {
+        return roles;
+    }
 
-	/**
-	 * @param email
-	 *              the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * @return the typeUtilisateur
+     */
+    public TypeUtilisateurEnum getTypeUtilisateur() {
+        return typeUtilisateur;
+    }
 
-	/**
-	 * @param enabled
-	 *                the enabled to set
-	 */
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    /**
+     * @return the enabled
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	/**
-	 * @param password
-	 *                 the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * @param email
+     *              the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	/**
-	 * @param roles
-	 *              the roles to set
-	 */
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
-	}
+    /**
+     * @param enabled
+     *                the enabled to set
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * @param password
+     *                 the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @param roles
+     *              the roles to set
+     */
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
+    /**
+     * @param typeUtilisateur
+     *                        the typeUtilisateur to set
+     */
+    public void setTypeUtilisateur(TypeUtilisateurEnum typeUtilisateur) {
+        this.typeUtilisateur = typeUtilisateur;
+    }
 
 }

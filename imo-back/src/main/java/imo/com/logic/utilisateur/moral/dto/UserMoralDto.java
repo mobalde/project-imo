@@ -5,8 +5,8 @@ package imo.com.logic.utilisateur.moral.dto;
 
 import imo.com.logic.utilisateur.UserDto;
 import imo.com.model.adresse.Adresse;
-import imo.com.model.promoteur.RepresentantLegal;
-import imo.com.model.promoteur.TypePromoteurEnum;
+import imo.com.model.typeUtilisateur.RepresentantLegal;
+import imo.com.model.typeUtilisateur.TypeUtilisateurEnum;
 
 /**
  * @author mbalde
@@ -30,7 +30,7 @@ public class UserMoralDto extends UserDto {
     private String siret;
 
     /** type promoteur */
-    private TypePromoteurEnum typePromoteur;
+    private TypeUtilisateurEnum typePromoteur;
 
     /**
      * @return the adresse
@@ -70,7 +70,7 @@ public class UserMoralDto extends UserDto {
     /**
      * @return the typePromoteur
      */
-    public TypePromoteurEnum getTypePromoteur() {
+    public TypeUtilisateurEnum getTypePromoteur() {
         return typePromoteur;
     }
 
@@ -118,7 +118,7 @@ public class UserMoralDto extends UserDto {
      * @param typePromoteur
      *                      the typePromoteur to set
      */
-    public void setTypePromoteur(TypePromoteurEnum typePromoteur) {
+    public void setTypePromoteur(TypeUtilisateurEnum typePromoteur) {
         this.typePromoteur = typePromoteur;
     }
 }

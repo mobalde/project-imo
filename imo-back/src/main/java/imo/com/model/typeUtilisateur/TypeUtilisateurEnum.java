@@ -1,13 +1,13 @@
 /**
  * 
  */
-package imo.com.model.promoteur;
+package imo.com.model.typeUtilisateur;
 
 /**
  * @author mbalde
  *
  */
-public enum TypePromoteurEnum {
+public enum TypeUtilisateurEnum {
 
 	/** Entreprise */
 	ENTREPRISE("Entreprise"), //
@@ -17,7 +17,7 @@ public enum TypePromoteurEnum {
 	/** Libelle enum */
 	private String libelle;
 
-	private TypePromoteurEnum(String libelle) {
+	private TypeUtilisateurEnum(String libelle) {
 		this.libelle = libelle;
 	}
 	/**

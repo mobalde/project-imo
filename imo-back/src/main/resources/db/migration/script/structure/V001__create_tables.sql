@@ -9,6 +9,7 @@ create table IF NOT EXISTS users(
     modificationcounter integer,
     email varchar(500) not null CONSTRAINT email_unique UNIQUE,
     password varchar(500) not null,
+    type_user varchar(13) not null,
     enabled boolean,
     user_type varchar(100),
     PRIMARY KEY(id)
@@ -46,7 +47,6 @@ create table IF NOT EXISTS user_moral(
     prenom varchar(50) not null,
     nom varchar(50) not null,
     telephone varchar(15),
-    type_promoteur varchar(12) not null,
     siret varchar(20),
      PRIMARY KEY(id)
 );
